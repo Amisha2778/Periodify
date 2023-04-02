@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Period Tracker</title>
+    <!-- add your own styles here -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+      }
+      
+      header {
+        background-color: #FFC0CB;
+        padding: 20px;
+      }
+      
+      header h1 {
+        margin: 0;
+        font-size: 36px;
+      }
+      
+      main {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #F5F5F5;
+      }
+      
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+      
+      label {
+        margin-top: 10px;
+        font-size: 18px;
+      }
+      
+      input {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        margin-bottom: 20px;
+      }
+      
+      button {
+        padding: 10px;
+        font-size: 18px;
+        background-color: #FFC0CB;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+      }
+      
+      button:hover {
+        background-color: #FF69B4;
+        color: #FFFFFF;
+      }
+      
+      .results {
+        margin-top: 20px;
+        font-size: 18px;
+        border: 1px solid #CCCCCC;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #FFFFFF;
+      }
+      
+      .history {
+        margin-top: 20px;
+        font-size: 18px;
+        border: 1px solid #CCCCCC;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #FFFFFF;
+      }
+      
+      .history p {
+        margin: 0;
+        line-height: 2;
+      }
+      
+      footer {
+        background-color: #FFC0CB;
+        text-align: center;
+        padding: 10px;
+      }
+      
+      footer p {
+        margin: 0;
+      }
+      /* add your own styles here */
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      th, td {
+        padding: 10px;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Period Tracker</h1>
+    </header>
+    <main>
+      <form>
+        <h2>Track Your Period</h2>
+        <label for="start-date">Start Date:</label>
+        <input type="date" id="start-date" name="start-date" required>
+        <br>
+        <label for="cycle-length">Cycle Length (in days):</label>
+        <input type="number" id="cycle-length" name="cycle-length" min="10" max="50" required>
+        <br>
+        <label for="period-length">Period Length (in days):</label>
+        <input type="number" id="period-length" name="period-length" min="1" max="10" required>
+        <br>
+        <button type="button" onclick="addRow()">Submit</button>
+      </form>
+
+      <table id="myTable">
+        <tr>
+          <th>Start Date</th>
+          <th>Next Periods Date</th>
+        </tr>
+      </table>
+
+      <script>
+    function addRow() {
+          const startDate = new Date(document.getElementById("start-date").value);
+          const cycleLength = parseInt(document.getElementById("cycle-length").value);
+          const periodLength = parseInt(document.getElementById("period-length").value);
+
+          const nextPeriodStartDate = new Date(startDate.getTime() + cycleLength * 24 * 60 * 60 * 1000);
+          const expectedNextPeriodStartDate = new Date(nextPeriodStartDate.getTime() + 1 * 24 * 60 * 60 * 1000 );
+
+          const table = document.getElementById("myTable");
+          const newRow = table.insertRow(table.length);
+          const cell1 = newRow.insertCell(0);
+          const cell2 = newRow.insertCell(1);
+          cell1.innerHTML = startDate.toLocaleDateString();
+          cell2.innerHTML = expectedNextPeriodStartDate.toLocaleDateString();
+        }
+      </script>
+    </main>
+  </body>
+</html>
